@@ -134,3 +134,62 @@ select Fname, Lname, Address from employee, departament
 select e.Fname, e.Lname, e.Address from employee e, departament d
 	where d.Dname = 'Research' and d.Dnumber = e.Dno;
 
+-- 1. Verificar os cabeçalhos e tipos de dados
+DESCRIBE employee;
+
+-- 2. Modificar os valores monetários para o tipo double precisão
+ALTER TABLE employee ALTER COLUMN Salary TYPE DOUBLE PRECISION;
+
+-- 3. Verificar a existência de nulos e analisar a remoção
+SELECT * FROM employee WHERE Salary IS NULL;
+-- Para remover os registros com valores nulos
+-- DELETE FROM employee WHERE Salary IS NULL;
+
+-- 4. Funcionários sem gerente
+SELECT * FROM employee WHERE Super_ssn IS NULL;
+
+-- 5. Departamentos sem gerente
+SELECT Dname FROM departament d
+LEFT JOIN employee e ON d.Dnumber = e.Dno
+WHERE e.Ssn IS NULL;
+
+-- 6. Atribuir gerentes a departamentos sem gerente
+-- Exemplo: UPDATE departament SET Mgr_ssn = 'NovoGerenteSsn' WHERE Dname = 'DepartamentoSemGerente';
+
+-- 7. Verificar o número de horas dos projetos
+SELECT Pnumber, SUM(Hours) FROM works_on GROUP BY Pnumber;
+
+-- 8. Separar colunas complexas
+SELECT Fname, Lname, Salary, Salary * 0.011 AS INSS FROM employee;
+
+-- 9. Mesclar employee e departament para criar uma tabela com nomes de departamentos associados
+CREATE TABLE employee_departments AS
+SELECT e.*, d.Dname AS DepartmentName
+FROM employee e
+JOIN departament d ON e.Dno = d.Dnumber;
+
+-- 10. Eliminar colunas desnecessárias na nova tabela
+
+-- 11. Mesclar os colaboradores com seus respectivos gerentes
+CREATE TABLE employee_managers AS
+SELECT e.*, m.Fname AS ManagerFname, m.Lname AS ManagerLname
+FROM employee e
+LEFT JOIN employee m ON e.Super_ssn = m.Ssn;
+
+-- 12. Mesclar colunas de Nome e Sobrenome
+SELECT Fname || ' ' || Lname AS Fullname FROM employee;
+
+-- 13. Mesclar nomes de departamentos e localizações
+SELECT Dname || ' - ' || Lname AS DepartmentLocation FROM departament;
+
+-- 14. Mesclar colunas em vez de atribuir é adequado quando você deseja criar colunas derivadas sem modificar as originais
+
+-- 15. Agrupar colaboradores por gerente e contar
+SELECT ManagerSsn, COUNT(*) AS EmployeeCount
+FROM employee_managers
+GROUP BY ManagerSsn;
+
+-- 16. Eliminar colunas desnecessárias
+ALTER TABLE employee DROP COLUMN ColunaIndesejada;
+
+
