@@ -4,5 +4,5 @@
 <p>segmento</p>
 <img src="https://raw.githubusercontent.com/SrBogolhao/power_bi_analyst/main/M%C3%B3dulo%202/Desafio%20de%20Projeto/nova%20pasta/Sem%20t%C3%ADtulo%2001.png">
 <p>Segunda tabela</p>
-![Sem título 03]()
+<img src="https://raw.githubusercontent.com/SrBogolhao/power_bi_analyst/main/M%C3%B3dulo%202/Desafio%20de%20Projeto/nova%20pasta/Sem%20t%C3%ADtulo%2001.png">
 
